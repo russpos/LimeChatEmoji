@@ -28,7 +28,7 @@
             var ogHtml = html;
 
             // Find everything that looks like an emoji
-            var matches = html.match(/:([\d\w+-_]+):/g);
+            var matches = html.match(/:([\d\w\+\-_]+):/g);
             for (var i in matches) {
                 var match = matches[i];
 
