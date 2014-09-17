@@ -14,6 +14,10 @@
         "margin: 0",
         "padding: 0",
     ].join('; ');
+    
+    var aliases = {
+        '+1': 'plus1'
+    };
 
     document.addEventListener("DOMNodeInserted", function(e) {
         var line = e.target;
@@ -36,8 +40,9 @@
                 if (match.match(/:\d\d:/)) {
                     continue;
                 }
-                var emoji = match.replace(/:/g, '');
-                var icon = '<img class="inlineimage" src="' + imgbase + emoji + '.png' + '" title="' + emoji + '" style="' + styles +'">';
+                var emoji = match.replace(/:/g, ''),
+                    emoji = aliases[emoji] || emoji,
+                    icon = '<img class="inlineimage" src="' + imgbase + emoji + '.png' + '" title="' + emoji + '" style="' + styles +'">';
                 html = html.replace(match, icon);
             }
 
