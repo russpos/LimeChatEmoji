@@ -43,6 +43,10 @@
         "margin: 0",
         "padding: 0",
     ].join('; ');
+    
+    var aliases = {
+        '+1': 'plus1'
+    };
 
     document.addEventListener("DOMNodeInserted", function(e) {
         var line = e.target;
@@ -57,7 +61,7 @@
             var ogHtml = html;
 
             // Find everything that looks like an emoji
-            var matches = html.match(/:([\d\w+-_]+):/g);
+            var matches = html.match(/:([\d\w\+\-_]+):/g);
             for (var i in matches) {
                 var match = matches[i];
 
@@ -71,11 +75,9 @@
                     continue;
                 }
 
-                var emoji = match.replace(/:/g, '');
-                if (emojiMap[emoji]) {
-                    emoji = emojiMap[emoji];
-                }
-                var icon = '<img class="inlineimage" src="' + imgbase + emoji + '.png' + '" title="' + emoji + '" style="' + styles +'">';
+                var emoji = match.replace(/:/g, ''),
+                    emoji = aliases[emoji] || emoji,
+                    icon = '<img class="inlineimage" src="' + imgbase + emoji + '.png' + '" title="' + emoji + '" style="' + styles +'">';
                 html = html.replace(match, icon);
             }
 
