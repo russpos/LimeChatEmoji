@@ -2,6 +2,35 @@
 
     var imgbase = "http://www.emoji-cheat-sheet.com/graphics/emojis/";
 
+    var emojiMap = {
+        "laughing":"satisfied",
+        "hankey":"poop",
+        "boom":"collision",
+        "+1":"thumbsup",
+        "-1":"thumbsdown",
+        "facepunch":"punch",
+        "hand":"raised_hand",
+        "runner":"running",
+        "mans_shoe":"shoe",
+        "shirt":"tshirt",
+        "bee":"honeybee",
+        "dolphin":"flipper",
+        "feet":"paw_prints",
+        "moon":"waxing_gibbous_moon",
+        "phone":"telephone",
+        "hocho":"knife",
+        "email":"envelope",
+        "memo":"pencil",
+        "book":"open_book",
+        "boat":"sailboat",
+        "car":"red_car",
+        "izakaya_lantern":"lantern",
+        "gb":"uk",
+        "exclamation":"heavy_exclamation_mark",
+        "shipit":"squirrel",
+        "shit" : "poop"
+    };
+
     // Inline styles to be added directly to our emoji images
     var styles = [
         "border: none",
@@ -36,7 +65,16 @@
                 if (match.match(/:\d\d:/)) {
                     continue;
                 }
+
+                // If it looks like '://', it's probably the beginnig of a URL
+                if (match.match(/:\/\//)) {
+                    continue;
+                }
+
                 var emoji = match.replace(/:/g, '');
+                if (emojiMap[emoji]) {
+                    emoji = emojiMap[emoji];
+                }
                 var icon = '<img class="inlineimage" src="' + imgbase + emoji + '.png' + '" title="' + emoji + '" style="' + styles +'">';
                 html = html.replace(match, icon);
             }
