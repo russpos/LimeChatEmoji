@@ -43,7 +43,7 @@
         "margin: 0",
         "padding: 0",
     ].join('; ');
-    
+
     var aliases = {
         '+1': 'plus1'
     };
